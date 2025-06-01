@@ -9,8 +9,7 @@ def log_ip():
     ip = request.remote_addr
     user_agent = request.headers.get('User-Agent')
     timestamp = datetime.now().isoformat()
-    with open("logs.txt", "a") as log:
-        log.write(f"{timestamp} - IP: {ip}, UA: {user_agent}\n")
+    print(f"{timestamp} - IP: {ip}, UA: {user_agent}")
     return "Gotcha 😉"
 
 if __name__ == '__main__':
