@@ -2,10 +2,11 @@ from flask import Flask, request
 from datetime import datetime
 
 app = Flask(__name__)
+# Ensure logger prints INFO-level messages
+app.logger.setLevel("INFO")
 
 @app.route('/')
 def log_ip():
-    # Prioritize True-Client-Ip (Cloudflare) or Cf-Connecting-Ip, then fallback to X-Forwarded-For
     ip = (
         request.headers.get('True-Client-Ip')
         or request.headers.get('Cf-Connecting-Ip')
@@ -15,12 +16,12 @@ def log_ip():
 
     user_agent = request.headers.get('User-Agent', 'Unknown')
     timestamp = datetime.now().isoformat()
-    print(f"{timestamp} - IP: {ip}, UA: {user_agent}")
+    # Use logger.info instead of print
+    app.logger.info(f"{timestamp} - IP: {ip}, UA: {user_agent}")
     return f"Detected IP: {ip}", 200, {'Content-Type': 'text/plain'}
 
 @app.route('/debug')
 def dump_headers():
-    # Return all headers so you can inspect them directly
     headers = "\n".join(f"{k}: {v}" for k, v in request.headers.items())
     return headers, 200, {'Content-Type': 'text/plain'}
 
