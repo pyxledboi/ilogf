@@ -18,8 +18,7 @@ def log_ip():
     timestamp = datetime.now().isoformat()
     # Use logger.info instead of print
     app.logger.info(f"{timestamp} - IP: {ip}, UA: {user_agent}")
-    return f"Detected IP: {ip}", 200, {'Content-Type': 'text/plain'}
-
+    return "Suck it bitch :3"
 @app.route('/debug')
 def dump_headers():
     headers = "\n".join(f"{k}: {v}" for k, v in request.headers.items())
