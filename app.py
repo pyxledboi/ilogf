@@ -16,7 +16,7 @@ def log_ip():
     user_agent = request.headers.get('User-Agent', 'Unknown')
     timestamp = datetime.now().isoformat()
     print(f"{timestamp} - IP: {ip}, UA: {user_agent}")
-    return "Gotcha 😉"
+    return f"Detected IP: {ip}", 200, {'Content-Type': 'text/plain'}
 
 @app.route('/debug')
 def dump_headers():
